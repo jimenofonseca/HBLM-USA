@@ -2,4 +2,5 @@
 .idea
 data/weather_data
 data/building_data
+data/training_prediction_data
 *.pyc
