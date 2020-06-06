@@ -3,4 +3,5 @@
 data/weather_data
 data/building_data
 data/training_prediction_data
+results\final_consumption_city.csv
 *.pyc
