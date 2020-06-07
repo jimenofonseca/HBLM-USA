@@ -38,8 +38,8 @@ with open(_version_path, 'r') as f:
 install_requires = ['numpy==1.16.0',
                     'pandas==0.23.4',
                     'enthalpygradients==1.0'
-                    'pymc3==1.0',
-                    'sklearn==0.22.1']
+                    'pymc3==3.6',
+                    'scikit-learn==0.22.1']
 
 setup(
     name='DEG-USA',
