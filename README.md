@@ -1,6 +1,6 @@
 # HBLM-USA-1.0
  
-Forecasting model of building energy consumption for the USA (part of the 6th IPCC report on Climate Change (2021)).
+Data-driven forecasting model of building energy consumption for the USA (part of the 6th IPCC report on Climate Change (2021)).
 
 ## How does it work
 
@@ -24,7 +24,8 @@ at the national level (as requested by the IPCC database). These included:
 
 - Where are the results stored? A: the results are inside the results folder / final_results.csv
 - Where is the orginal database of built areas? A: It is publicly available for commercial and residential buildings [`here`](https://www.eia.gov/consumption/commercial/data/2012/) and [`here`](https://www.eia.gov/consumption/residential/data/2015/)
-- Where is the orginal weather data? A: it is not available to the public. It was obtained from the private vendor [`Meteonorm`](https://meteonorm.com/en/)
+- Where is the weather data? A: The data is available from a private vendor [`Meteonorm`](https://meteonorm.com/en/)
+- Where is the building performance data? A: It is publicly available for close to 1 million buildings at [`LBL`](gov)
 
 ## Cite
 
