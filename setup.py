@@ -35,9 +35,11 @@ _version_path = os.path.join(here, 'model', '__init__.py')
 with open(_version_path, 'r') as f:
     exec(f.read(), _version)
 
-install_requires = ['numpy',
-                    'pandas',
-                    'enthalpygradients==1.0']
+install_requires = ['numpy==1.16.0',
+                    'pandas==0.23.4',
+                    'enthalpygradients==1.0'
+                    'pymc3==1.0',
+                    'sklearn==0.22.1']
 
 setup(
     name='DEG-USA',

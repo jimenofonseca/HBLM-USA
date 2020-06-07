@@ -27,6 +27,7 @@ import time
 import pandas as pd
 
 from model.auxiliary import parse_scenario_name, percentile
+from model.constants import MODEL_NAME
 from pointers import METADATA_FILE_PATH, INTERMEDIATE_RESULT_FILE_PATH, FINAL_RESULT_FILE_PATH
 
 
@@ -46,12 +47,42 @@ def main():
         ipcc_scenario_name = parse_scenario_name(scenario)
         year_scenario = scenario.split("_")[-1]
         for sector in ['Residential', 'Commercial']:
+            use = "GFA_Bm2"
+            mean_area = data_consumption.loc[sector, scenario][use, 'percentile_50']
+            est_97_5 = data_consumption.loc[sector, scenario][use, 'percentile_97.5']
+            est_2_5 = data_consumption.loc[sector, scenario][use, 'percentile_2.5']
+
+            dict_area_mean = {'Model': MODEL_NAME,
+                              'Region': 'USA',
+                              'Unit': 'bn m2/yr',
+                              'Variable': 'Energy Service|Buildings|' + sector + '|Floor Space',
+                              'Scenario': ipcc_scenario_name + ' - 50th percentile',
+                              'Year': year_scenario,
+                              'Value': mean_area,
+                              }
+            dict_area_min = {'Model': MODEL_NAME,
+                             'Region': 'USA',
+                             'Unit': 'bn m2/yr',
+                             'Variable': 'Energy Service|Buildings|' + sector + '|Floor Space',
+                             'Scenario': ipcc_scenario_name + ' - 2.5th percentile',
+                             'Year': year_scenario,
+                             'Value': est_2_5,
+                             }
+            dict_area_max = {'Model': MODEL_NAME,
+                             'Region': 'USA',
+                             'Unit': 'bn m2/yr',
+                             'Variable': 'Energy Service|Buildings|' + sector + '|Floor Space',
+                             'Scenario': ipcc_scenario_name + ' - 97.5th percentile',
+                             'Year': year_scenario,
+                             'Value': est_97_5,
+                             }
+
             use = "TOTAL_CONSUMPTION_EJ"
             mean_EJ = data_consumption.loc[sector, scenario][use, 'percentile_50']
             est_97_5_EJ = data_consumption.loc[sector, scenario][use, 'percentile_97.5']
             est_2_5_EJ = data_consumption.loc[sector, scenario][use, 'percentile_2.5']
 
-            dict_mean = {'Model': 'DEG-USA 1.0',
+            dict_mean = {'Model': MODEL_NAME,
                          'Region': 'USA',
                          'Unit': 'EJ_yr',
                          'Variable': 'Final Energy|Buildings|' + sector + '|Space',
@@ -59,7 +90,7 @@ def main():
                          'Year': year_scenario,
                          'Value': mean_EJ,
                          }
-            dict_min = {'Model': 'DEG-USA 1.0',
+            dict_min = {'Model': MODEL_NAME,
                         'Region': 'USA',
                         'Unit': 'EJ_yr',
                         'Variable': 'Final Energy|Buildings|' + sector + '|Space',
@@ -67,7 +98,7 @@ def main():
                         'Year': year_scenario,
                         'Value': est_2_5_EJ,
                         }
-            dict_max = {'Model': 'DEG-USA 1.0',
+            dict_max = {'Model': MODEL_NAME,
                         'Region': 'USA',
                         'Unit': 'EJ_yr',
                         'Variable': 'Final Energy|Buildings|' + sector + '|Space',
@@ -75,7 +106,7 @@ def main():
                         'Year': year_scenario,
                         'Value': est_97_5_EJ,
                         }
-            dataframe = pd.DataFrame([dict_mean, dict_min, dict_max])
+            dataframe = pd.DataFrame([dict_mean, dict_min, dict_max, dict_area_mean, dict_area_min, dict_area_max])
             final_df = pd.concat([final_df, dataframe], ignore_index=True)
     result = pd.pivot_table(final_df, values='Value', columns='Year',
                             index=['Model', 'Scenario', 'Region', 'Variable', 'Unit'])
