@@ -1,5 +1,6 @@
 # HBLM-USA-1.0
- 
+![GitHub license](https://img.shields.io/github/license/JIMENOFONSECA/HBLM-USA) ![Repo Size](https://img.shields.io/github/repo-size/JIMENOFONSECA/HBLM-USA) 
+
 Data-driven forecasting model of building energy consumption for the USA (part of the 6th IPCC report on Climate Change (2021)).
 
 ## How does it work
