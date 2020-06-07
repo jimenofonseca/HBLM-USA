@@ -25,6 +25,7 @@ import os
 
 import numpy as np
 import pandas as pd
+import time
 from enthalpygradients import EnthalpyGradient
 
 from model.auxiliary import read_weather_data_scenario, calc_thermal_consumption, calc_clusters, calc_ACH_category, \
@@ -107,4 +108,7 @@ def main():
 
 
 if __name__ == "__main__":
+    t0 = time.time()
     main()
+    t1 = round((time.time() - t0)/60,2)
+    print("finished after {} minutes".format(t1))

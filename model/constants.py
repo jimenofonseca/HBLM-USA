@@ -22,6 +22,9 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.
 '''
 
+samples = 2500
+response_variable = "LOG_SITE_ENERGY_kWh_yr"
+predictor_variables = ["LOG_THERMAL_ENERGY_kWh_yr", "CLUSTER_LOG_SITE_EUI_kWh_m2yr"]
 random_state = 170
 n_clusters = 5
 storey_height_m = 3

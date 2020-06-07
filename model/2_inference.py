@@ -24,37 +24,40 @@ SOFTWARE.
 import os
 import sys
 
-sys.path.append(r'E:\GitHub\RegionalEnergyAnalyst')
-
-os.environ["THEANO_FLAGS"] = "device=cpu,floatX=float32,force_device=True"
-os.environ["MKL_THREADING_LAYER"] = "GNU"
+# sys.path.append(r'E:\GitHub\HBLM-USA')
+# os.environ["THEANO_FLAGS"] = "device=cpu,floatX=float32,force_device=True"
+# os.environ["MKL_THREADING_LAYER"] = "GNU"
 
 import pickle
+import time
 from sklearn.preprocessing import StandardScaler
 import pymc3 as pm
 import pandas as pd
 from configuration import DATA_IPCC_REPORT_HBLM_TRAINING_FILE, DATA_IPCC_REPORT_HBLM_MODEL_FILE
+from pointers import TRAINING_DATA_FILE_PATH, METADATA_FILE_PATH, BUILDING_PERFORMANCE_FOLDER_PATH, MODEL_FILE_PATH
+from model.constants import response_variable, predictor_variables, samples
 
+def main():
 
-def main(Xy_training_path, output_trace_path, response_variable, predictor_variables, samples):
-    # READ DATA
-    Xy_training = pd.read_csv(Xy_training_path)
+    # local variables
+    output_model_path = MODEL_FILE_PATH
+    data_training_df = pd.read_csv(TRAINING_DATA_FILE_PATH)
 
-    # SCALE THE DATA
+    # scale the data
     scaler = StandardScaler()
     fields_to_scale = [response_variable] + predictor_variables
-    Xy_training[fields_to_scale] = pd.DataFrame(scaler.fit_transform(Xy_training[fields_to_scale]),
-                                                columns=Xy_training[fields_to_scale].columns)
+    data_training_df[fields_to_scale] = pd.DataFrame(scaler.fit_transform(data_training_df[fields_to_scale]),
+                                                columns=data_training_df[fields_to_scale].columns)
 
 
     # CREATE INDEXES FOR THE HIERACHY
-    degree_index = Xy_training.groupby('CLIMATE_ZONE').all().reset_index().reset_index()[['index', 'CLIMATE_ZONE']]
-    degree_state_index = Xy_training.groupby(["CLIMATE_ZONE", "CITY"]).all().reset_index().reset_index()[['index', "CLIMATE_ZONE", "CITY"]]
-    degree_state_county_index = Xy_training.groupby(["CLIMATE_ZONE", "CITY", "BUILDING_CLASS"]).all().reset_index().reset_index()[['index', "CLIMATE_ZONE", "CITY", "BUILDING_CLASS"]]
+    degree_index = data_training_df.groupby('CLIMATE_ZONE').all().reset_index().reset_index()[['index', 'CLIMATE_ZONE']]
+    degree_state_index = data_training_df.groupby(["CLIMATE_ZONE", "CITY"]).all().reset_index().reset_index()[['index', "CLIMATE_ZONE", "CITY"]]
+    degree_state_county_index = data_training_df.groupby(["CLIMATE_ZONE", "CITY", "BUILDING_CLASS"]).all().reset_index().reset_index()[['index', "CLIMATE_ZONE", "CITY", "BUILDING_CLASS"]]
 
     degree_state_indexes_df = pd.merge(degree_index, degree_state_index, how='inner', on='CLIMATE_ZONE', suffixes=('_d', '_ds'))
     degree_state_county_indexes_df = pd.merge(degree_state_indexes_df, degree_state_county_index, how='inner', on=['CLIMATE_ZONE', 'CITY'])
-    indexed_salary_df = pd.merge(Xy_training, degree_state_county_indexes_df, how='inner', on=['CLIMATE_ZONE', 'CITY', 'BUILDING_CLASS']).reset_index()
+    indexed_salary_df = pd.merge(data_training_df, degree_state_county_indexes_df, how='inner', on=['CLIMATE_ZONE', 'CITY', 'BUILDING_CLASS']).reset_index()
 
     degree_indexes = degree_index['index'].values
     degree_count = len(degree_indexes)
@@ -63,7 +66,7 @@ def main(Xy_training_path, output_trace_path, response_variable, predictor_varia
     degree_state_county_indexes = degree_state_county_indexes_df['index_ds'].values
     degree_state_county_count = len(degree_state_county_indexes)
 
-    # Xy_training[response_variable] = Xy_training[response_variable].astype(theano.config.floatX)
+    # data_training_df[response_variable] = data_training_df[response_variable].astype(theano.config.floatX)
 
     with pm.Model() as hierarchical_model:
 
@@ -113,21 +116,14 @@ def main(Xy_training_path, output_trace_path, response_variable, predictor_varia
         #
         #
         # save to disc
-        with open(output_trace_path, 'wb') as buff:
+        with open(output_model_path, 'wb') as buff:
             pickle.dump({'inference': hierarchical_model, 'trace': hierarchical_trace,
                          'scaler': scaler, 'city_index_df': degree_state_county_indexes_df,
                          'response_variable': response_variable, 'predictor_variables': predictor_variables}, buff)
 
 
 if __name__ == "__main__":
-    import time
     t0 = time.time()
-    samples = 2500  # number of shamples per chain. Normally 2 chains are run so for 10.000 samples the sampler will do 20.0000 and compare convergence
-    response_variable = "LOG_SITE_ENERGY_kWh_yr"
-    predictor_variables = ["LOG_THERMAL_ENERGY_kWh_yr", "CLUSTER_LOG_SITE_EUI_kWh_m2yr"]
-
-    Xy_training_path = DATA_IPCC_REPORT_HBLM_TRAINING_FILE
-    output_trace_path = DATA_IPCC_REPORT_HBLM_MODEL_FILE
-    main(Xy_training_path, output_trace_path, response_variable, predictor_variables, samples)
-    t1 = time.time() - t0
-    print(t1)
+    main()
+    t1 = round((time.time() - t0)/60,2)
+    print("finished after {} minutes".format(t1))

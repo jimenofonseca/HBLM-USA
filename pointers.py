@@ -31,3 +31,4 @@ WEATHER_DATA_FOLDER_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__
 BUILDING_PERFORMANCE_FOLDER_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "data", "building_data")
 PREDICTION_DATA_FILE_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "data", "training_prediction_data", "prediction_dataset.csv")
 TRAINING_DATA_FILE_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "data", "training_prediction_data", "training_dataset.csv")
+MODEL_FILE_PATH = os.path.join(os.path.abspath(os.path.dirname(__file__)), "results", "model.pkl")

@@ -27,6 +27,7 @@ import pandas as pd
 
 import os
 
+import time
 import numpy as np
 import pandas as pd
 from enthalpygradients import EnthalpyGradient
@@ -42,7 +43,7 @@ def main():
     #local variables
     output_path = PREDICTION_DATA_FILE_PATH
     data_energy_folder_path = BUILDING_PERFORMANCE_FOLDER_PATH
-    data_training_df = pd.read_csv(TRAINING_DATA_FILE_PATH)
+    data_training_df = pd.read_csv(TRAINING_DATA_FILE_PATH, usecols=["BUILDING_ID", "CLUSTER_LOG_SITE_EUI_kWh_m2yr"])
     scenarios_array = pd.read_excel(METADATA_FILE_PATH, sheet_name='SCENARIOS')['SCENARIO'].values
     cities_array = pd.read_excel(METADATA_FILE_PATH, sheet_name='CITIES')['CITY'].values
 
@@ -97,7 +98,6 @@ def main():
             print("scenario and city done: ", scenario, city)
 
     #now import the training dataset and get tremaining cluster_data
-    data_training_df = pd.read_csv(data_training_df, usecols=["BUILDING_ID", "CLUSTER_LOG_SITE_EUI_kWh_m2yr"])
     data_final_df = final_df.merge(data_training_df, left_on='BUILDING_ID', right_on='BUILDING_ID')
     data_final_df.to_csv(output_path, index=False)
     print("done")
@@ -105,7 +105,10 @@ def main():
 
 
 if __name__ == "__main__":
+    t0 = time.time()
     main()
+    t1 = round((time.time() - t0)/60,2)
+    print("finished after {} minutes".format(t1))
 
 
 
