@@ -19,9 +19,6 @@ at the national level (as requested by the IPCC database). These included:
 ## Installation
 
 - Clone this repository
-## Installation
-
-- Clone this repository
 - Install dependencies
 
   - [`EnthalpyGradients`](https://pypi.org/project/EnthalpyGradients/)
