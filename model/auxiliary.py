@@ -26,14 +26,34 @@ import os
 
 import pandas as pd
 from sklearn import mixture
+import numpy as np
 
 from model.constants import hours_of_day, air_density_kgm3, storey_height_m, \
     random_state, n_clusters, ZONE_NAMES, ACH_Residential, ACH_Commercial
 from pointers import WEATHER_DATA_FOLDER_PATH
 
+
+def percentile(n):
+    def percentile_(x):
+        return np.percentile(x, n)
+
+    percentile_.__name__ = 'percentile_%s' % n
+    return percentile_
+
+
+def parse_scenario_name(scenario):
+    mapa = {'A1B': 'Medium Impact',
+            'A2': 'High Impact',
+            'B1': 'Low Impact'
+            }
+    name = scenario.split('_')[-2]
+    return mapa[name]
+
+
 def calc_weight_climate_zone(sector, climate_region, floor_area_climate_df):
     floor_area_climate = floor_area_climate_df.loc[climate_region]
     return floor_area_climate['GFA_mean_' + sector + '_perc']
+
 
 def calc_ACH_category(building_class):
     if building_class == "Residential":
