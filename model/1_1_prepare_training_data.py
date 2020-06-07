@@ -41,12 +41,13 @@ def main():
     output_path = TRAINING_DATA_FILE_PATH
     cities_array = pd.read_excel(METADATA_FILE_PATH, sheet_name='CITIES')['CITY'].values
 
-    # get climate zone classification (grouped version) - as in the original paper
+    # get climate climate_zone classification (grouped version) - as in the original paper
+    climate_regions_array = pd.read_excel(METADATA_FILE_PATH, sheet_name='CITIES')['Climate Region'].values
     climate_zones_array = pd.read_excel(METADATA_FILE_PATH, sheet_name='CITIES')['CLIMATE'].values
     climate_zones_array = calc_group_of_climate_zones(climate_zones_array)
 
     final_df = pd.DataFrame()
-    for city, zone in zip(cities_array, climate_zones_array):
+    for city, climate_zone, climate_region in zip(cities_array, climate_zones_array, climate_regions_array):
         # read wheater data
 
         T_outdoor_C, RH_outdoor_perc = read_weather_data_scenario(city, "data_1990_2010")
@@ -67,7 +68,8 @@ def main():
         data_measured = pd.read_csv(os.path.join(data_energy_folder_path, city + ".csv"))
         data_measured["BUILDING_ID"] = [city + str(ix) for ix in data_measured.index]
         data_measured['SCENARIO'] = "data_1990_2010"
-        data_measured['CLIMATE_ZONE'] = zone
+        data_measured['CLIMATE_REGION'] = climate_region
+        data_measured['CLIMATE_ZONE'] = climate_zone
         data_measured["GROSS_FLOOR_AREA_m2"] = (data_measured["floor_area"] * 0.092903).values
         data_measured["BUILDING_CLASS"] = data_measured["building_class"].values
         data_measured["CITY"] = city
@@ -91,6 +93,7 @@ def main():
         # list of fields to extract
         fields = ["BUILDING_ID",
                   "CITY",
+                  "CLIMATE_REGION",
                   "CLIMATE_ZONE",
                   "SCENARIO",
                   "BUILDING_CLASS",

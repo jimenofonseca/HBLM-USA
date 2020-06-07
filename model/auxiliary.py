@@ -31,6 +31,9 @@ from model.constants import hours_of_day, air_density_kgm3, storey_height_m, \
     random_state, n_clusters, ZONE_NAMES, ACH_Residential, ACH_Commercial
 from pointers import WEATHER_DATA_FOLDER_PATH
 
+def calc_weight_climate_zone(sector, climate_region, floor_area_climate_df):
+    floor_area_climate = floor_area_climate_df.loc[climate_region]
+    return floor_area_climate['GFA_mean_' + sector + '_perc']
 
 def calc_ACH_category(building_class):
     if building_class == "Residential":
