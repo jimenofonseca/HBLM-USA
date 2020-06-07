@@ -21,7 +21,7 @@ at the national level (as requested by the IPCC database). These included:
 - Clone this repository
 - Install dependencies
 
-  - [`EnthalpyGradients`](https://pypi.org/project/EnthalpyGradients/)
+  - [`EnthalpyGradients==1.0`](https://pypi.org/project/EnthalpyGradients/)
   - `numpy`
   - `pandas`
   - `Scikit-learn==0.20.0`
