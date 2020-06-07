@@ -19,7 +19,16 @@ at the national level (as requested by the IPCC database). These included:
 ## Installation
 
 - Clone this repository
-- Install dependencies in setup.py (EnthalpyGradients==1.0, numpy, pandas, PyMC3, ScikitLearn)
+## Installation
+
+- Clone this repository
+- Install dependencies
+
+  - [`EnthalpyGradients`](https://pypi.org/project/EnthalpyGradients/)
+  - `numpy`
+  - `pandas`
+  - `Scikit-learn==0.20.0`
+  - `PyMC3==3.6`
 
 ## FAQ
 
