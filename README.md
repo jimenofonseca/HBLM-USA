@@ -9,6 +9,8 @@ The model consists of a Hierachical Bayesian Linear Model trained over half a mi
 The forecasting model is based on the publication of [`Fonseca et al., 2020`](https://doi.org/10.3929/ethz-b-000416084) 
 which includes forecasts for over 100 cities across the United States and for multiple scenarios of climate change.
 
+![summary](https://github.com/JIMENOFONSECA/HBLM-USA/blob/master/images/summary.PNG)
+
 This repository includes some post-processing steps needed to aggregate the original results of `Fonseca et al., 2020` 
 at the national level (as requested by the IPCC database). These included:
 
