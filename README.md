@@ -1,5 +1,6 @@
 # HBLM-USA-1.0
- 
+![GitHub license](https://img.shields.io/github/license/JIMENOFONSECA/HBLM-USA) ![Repo Size](https://img.shields.io/github/repo-size/JIMENOFONSECA/HBLM-USA) ![Lines](https://raw.githubusercontent.com/JIMENOFONSECA/HBLM-USA/image-data/badge-lines-of-code.svg)
+
 Data-driven forecasting model of building energy consumption for the USA (part of the 6th IPCC report on Climate Change (2021)).
 
 ## How does it work
@@ -18,7 +19,13 @@ at the national level (as requested by the IPCC database). These included:
 ## Installation
 
 - Clone this repository
-- Install dependencies in setup.py (EnthalpyGradients==1.0, numpy, pandas, PyMC3, ScikitLearn)
+- Install dependencies
+
+  - [`EnthalpyGradients==1.0`](https://pypi.org/project/EnthalpyGradients/)
+  - `numpy`
+  - `pandas`
+  - `Scikit-learn==0.20.0`
+  - `PyMC3==3.6`
 
 ## FAQ
 
