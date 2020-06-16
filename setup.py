@@ -1,7 +1,7 @@
 '''
 MIT License
 
-Copyright (c) 2020 Jimeno A. Fonseca
+Copyright (c) 2020 Jimeno Fonseca
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
@@ -39,17 +39,18 @@ install_requires = ['numpy==1.16.0',
                     'pandas==0.23.4',
                     'enthalpygradients==1.0'
                     'pymc3==3.6',
-                    'scikit-learn==0.22.1']
+                    'scikit-learn==0.22.1'
+                    ]
 
 setup(
-    name='DEG-USA',
+    name='HBLM-USA',
     version=_version['__version__'],
-    packages=['DEG-USA'],
-    url='https://github.com/JIMENOFONSECA/EnthalpyGradients',
+    packages=['HBLM-USA'],
+    url='https://github.com/JIMENOFONSECA/bsts-sg',
     license='MIT',
-    author='Jimeno A. Fonseca',
+    author='Jimeno Fonseca',
     author_email='fonseca.jimeno@gmail.com',
-    description="DEG-USA: forecasting model based on Enthalpy Gradients for Climate Change Impact Scenarios in the USA",
+    description="HBLM-USA: forecasting model based on Hierarchical Bayesian Linear Model for Climate Change Impact Scenarios in the USA",
     long_description=long_description,
     long_description_content_type='text/markdown',
     python_requires='>=3.6',
