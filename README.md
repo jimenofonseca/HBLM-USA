@@ -41,4 +41,4 @@ at the national level (as requested by the IPCC database). These included:
 ## Cite
 
 J. A. Fonseca, I. Nevat and G.W. Peters, Quantifying Uncertainty in the Impact of Climate Change on Building Energy 
-Consumption Across the United States, Appl. Energy, (2020).https://doi.org/10.3929/ethz-b-0004160848
+Consumption Across the United States, Appl. Energy, (2020).https://doi.org/10.1016/j.apenergy.2020.115556
