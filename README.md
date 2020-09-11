@@ -32,9 +32,9 @@ at the national level (as requested by the IPCC database). These included:
 ## FAQ
 
 - Where are the results stored? A: the results are inside the results folder / final_results.csv
-- Where is the orginal database of built areas? A: It is publicly available for commercial and residential buildings [`here`](https://www.eia.gov/consumption/commercial/data/2012/) and [`here`](https://www.eia.gov/consumption/residential/data/2015/)
-- Where is the weather data? A: The data is available from a private vendor [`Meteonorm`](https://meteonorm.com/en/)
-- Where is the building performance data? A: It is publicly available for close to 1 million buildings at [`LBL`](gov)
+- Where is the orginal database of built areas? A: It is publicly available for commercial and residential buildings [`here`](https://www.eia.gov/consumption/commercial/data/2012/) and [`here`](https://www.eia.gov/consumption/residential/data/2015/).
+- Where is the weather data? A: The data is available from a private vendor [`Meteonorm`](https://meteonorm.com/en/). The data needs to be purchased separatelly for each one of the weather stations described in the file /inputs/metadata.xls.
+- Where is the building performance data? A: It is publicly available for close to 1 million buildings at [`LBL`](https://buildings.lbl.gov/cbs/bpd). The data needs to be downloaded via the API fo the LBL, you will need to ask LBL for access to the data. The data needs to be acquired for each one of the cities described in the file /inputs/metadata.xls.
 
 ## Cite
 
