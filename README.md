@@ -29,7 +29,8 @@ at the national level (as requested by the IPCC database). These included:
   - `Scikit-learn==0.20.0`
   - `PyMC3==3.6`
   
-- extract the file "/data/dummy_data_extract_here.zip"
+- Extract the file "/data/dummy_data_extract_here.zip"
+- Follow the instructions in the Readme.md files to get the data. Check also the FAQ for this too.
 
 ## FAQ
 
